@@ -108,6 +108,7 @@
                 </file>
             </activation>
             <modules>
+                <module>super-heroes/microservice-parent</module>
                 <module>super-heroes/extension-version</module>
                 <module>super-heroes/rest-villains</module>
                 <module>super-heroes/rest-heroes</module>

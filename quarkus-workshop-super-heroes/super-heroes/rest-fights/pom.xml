@@ -18,39 +18,35 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
+  <parent>
     <groupId>io.quarkus.workshop.super-heroes</groupId>
+    <artifactId>microservice-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../microservice-parent</relativePath>
+  </parent>
     <artifactId>rest-fights</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Quarkus Workshop :: Super-Heroes :: Fights Microservice</name>
 
     <properties>
-        <compiler-plugin.version>3.11.0</compiler-plugin.version>
-        <maven.compiler.release>17</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>3.6.0</quarkus.platform.version>
         <skipITs>true</skipITs>
-        <surefire-plugin.version>3.2.2</surefire-plugin.version>
-        <quarkus.pact.version>1.3.0</quarkus.pact.version>
         <failsafe.useModulePath>false</failsafe.useModulePath>
     </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
-                <version>${quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
+            <exclusions>
+                  <exclusion>
+                      <groupId>io.agroal</groupId>
+                      <artifactId>agroal-pool</artifactId>
+                  </exclusion>
+          </exclusions>
+        </dependency>
+    <dependency>
+      <groupId>io.github.crac.io.agroal</groupId>
+      <artifactId>agroal-pool</artifactId>
+      <version>1.18.CRAC.0</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -59,14 +55,46 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-openapi</artifactId>
+            <exclusions>
+                <exclusion>
+                  <groupId>io.vertx</groupId>
+                  <artifactId>vertx-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.vertx</groupId>
+                    <artifactId>vertx-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>kafka-clients</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.github.crac.org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>3.3.1.CRAC.0</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.vertx</groupId>
+                    <artifactId>vertx-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.github.crac.io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>4.4.6.CRAC.0</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -79,10 +107,22 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-reactive</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.vertx</groupId>
+                    <artifactId>vertx-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.vertx</groupId>
+                    <artifactId>vertx-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
